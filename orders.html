@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookHaven - Orders</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+      .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+        animation: fadeIn 0.3s ease-out;
+      }
+      .modal-content {
+        animation: slideIn 0.3s ease-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes slideIn {
+        from {
+          transform: translateY(-100px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    </style>
+    <script>
+      function showOrderForm(bookTitle, bookPrice) {
+        document.getElementById("bookTitle").value = bookTitle;
+        document.getElementById("bookPrice").value = bookPrice;
+        document.getElementById("modal").classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+        calculateTotal();
+      }
+
+      function closeModal() {
+        document.getElementById("modal").classList.add("hidden");
+        document.body.style.overflow = "auto";
+      }
+
+      function calculateTotal() {
+        const price = parseFloat(document.getElementById("bookPrice").value);
+        const quantity = parseInt(document.getElementById("jumlah").value) || 1;
+        const total = price * quantity;
+        document.getElementById("totalPrice").textContent = total.toLocaleString("id-ID");
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function (event) {
+        const modal = document.getElementById("modal");
+        if (event.target == modal) {
+          closeModal();
+        }
+      };
+    </script>
+  </head>
+  <body class="flex flex-col min-h-screen bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full z-10">
+      <div class="container mx-auto px-6 py-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <a href="index.html" class="text-gray-800 text-xl font-bold"> 📚 BookHaven </a>
+          </div>
+          <div class="flex items-center space-x-8">
+            <a href="index.html" class="text-gray-600 hover:text-gray-900">Home</a>
+            <a href="about.html" class="text-gray-600 hover:text-gray-900">About</a>
+            <a href="orders.html" class="text-gray-900 font-semibold">Orders</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-20">
+      <!-- Book Catalog -->
+      <section class="py-12 bg-white">
+        <div class="container mx-auto px-6">
+          <h2 class="text-4xl font-bold text-center mb-12">Katalog Buku</h2>
+
+          <!-- Categories -->
+          <div class="flex flex-wrap justify-center gap-4 mb-8">
+            <button class="px-4 py-2 bg-blue-500 text-white rounded-full">Semua</button>
+            <button class="px-4 py-2 bg-gray-200 hover:bg-blue-500 hover:text-white rounded-full transition">Fiksi</button>
+            <button class="px-4 py-2 bg-gray-200 hover:bg-blue-500 hover:text-white rounded-full transition">Non-Fiksi</button>
+            <button class="px-4 py-2 bg-gray-200 hover:bg-blue-500 hover:text-white rounded-full transition">Pendidikan</button>
+            <button class="px-4 py-2 bg-gray-200 hover:bg-blue-500 hover:text-white rounded-full transition">Bisnis</button>
+          </div>
+
+          <!-- Books Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Book 1 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:-translate-y-1">
+              <img src="image/Atomic Habits.jpeg" alt="Book 1" class="w-full h-64 object-cover" />
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">Atomic Habits</h3>
+                <p class="text-gray-600 mb-4">James Clear</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-xl font-bold">Rp 299.000</span>
+                  <button onclick="showOrderForm('Atomic Habits', 299000)" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">Beli</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Book 2 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:-translate-y-1">
+              <img src="image/RDPD.jpeg" alt="Book 2" class="w-full h-64 object-cover" />
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">Rich Dad Poor Dad</h3>
+                <p class="text-gray-600 mb-4">Robert Kiyosaki</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-xl font-bold">Rp 249.000</span>
+                  <button onclick="showOrderForm('Rich Dad Poor Dad', 249000)" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">Beli</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Book 3 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:-translate-y-1">
+              <img src="image/Psychology of Money.jpeg" alt="Book 3" class="w-full h-64 object-cover" />
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">Psychology of Money</h3>
+                <p class="text-gray-600 mb-4">Morgan Housel</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-xl font-bold">Rp 279.000</span>
+                  <button onclick="showOrderForm('Psychology of Money', 279000)" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">Beli</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Book 4 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:-translate-y-1">
+              <img src="image/Think and Grow Rich.jpeg" alt="Book 4" class="w-full h-64 object-cover" />
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">Think and Grow Rich</h3>
+                <p class="text-gray-600 mb-4">Napoleon Hill</p>
+                <div class="flex justify-between items-center">
+                  <span class="text-xl font-bold">Rp 199.000</span>
+                  <button onclick="showOrderForm('Think and Grow Rich', 199000)" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">Beli</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal Form -->
+    <div id="modal" class="fixed inset-0 z-50 hidden overflow-auto">
+      <div class="modal-backdrop fixed inset-0"></div>
+      <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+        <div class="modal-content relative bg-white rounded-lg max-w-2xl mx-auto p-8 w-full">
+          <button onclick="closeModal()" class="absolute right-4 top-4 text-gray-400 hover:text-gray-500">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+
+          <h2 class="text-3xl font-bold text-center mb-8">Form Pemesanan</h2>
+          <form onsubmit="event.preventDefault(); closeModal();">
+            <div class="mb-6">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="bookTitle"> Judul Buku </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100" id="bookTitle" type="text" readonly />
+              <input type="hidden" id="bookPrice" />
+            </div>
+            <div class="mb-6">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="nama"> Nama </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="nama" type="text" required />
+            </div>
+            <div class="mb-6">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="email"> Email </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" required />
+            </div>
+            <div class="mb-6">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="alamat"> Alamat Pengiriman </label>
+              <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="alamat" rows="3" required></textarea>
+            </div>
+            <div class="mb-6">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="jumlah"> Jumlah </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="jumlah" type="number" min="1" value="1" required onchange="calculateTotal()" />
+            </div>
+            <div class="mb-8 p-4 bg-gray-100 rounded-lg">
+              <h4 class="font-semibold mb-2">Total Pembayaran:</h4>
+              <p class="text-2xl font-bold text-blue-600">Rp <span id="totalPrice">0</span></p>
+            </div>
+            <div class="flex justify-center">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-lg focus:outline-none focus:shadow-outline" type="submit">Pesan Sekarang</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-auto">
+      <div class="container mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Alamat</h3>
+            <p class="text-gray-300">
+              Jl. Buku Indah No. 123<br />
+              Jakarta Selatan, 12345<br />
+              Indonesia
+            </p>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Kontak</h3>
+            <p class="text-gray-300">
+              Email: info@bookhaven.com<br />
+              Telp: (021) 123-4567<br />
+              WhatsApp: +62 812-3456-7890
+            </p>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Sosial Media</h3>
+            <div class="flex space-x-4">
+              <a href="#" class="text-gray-300 hover:text-white">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="text-gray-300 hover:text-white">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="text-gray-300 hover:text-white">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+          <p class="text-gray-300">&copy; 2024 BookHaven. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
